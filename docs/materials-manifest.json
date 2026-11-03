@@ -1,0 +1,107 @@
+{
+  "assembled": "2026-11-03",
+  "files": [
+    {
+      "path": "paper/preprint.pdf",
+      "source": "Final_MOE_Bias.pdf",
+      "description": "Available anonymous manuscript; not verified as the ICDM camera-ready version.",
+      "sha256": "c52dd6f35945f4db0838a0da7e58dfc465140d174519b3243a6783e2e02a1cbb"
+    },
+    {
+      "path": "posters/icdm2026/S16207.pdf",
+      "source": "S16207.pdf",
+      "description": "Current ICDM ARRL poster, updated 2026-11-03.",
+      "sha256": "19895badf3ec13e19fc4a670c6ad8d748a65f38cde581ef88a995b3dc428cd17"
+    },
+    {
+      "path": "posters/icdm2026/preview.png",
+      "source": "S16207_preview.png",
+      "description": "Preview of the current ICDM poster.",
+      "sha256": "5620e578751d93339550f301ba8a08fbc9e48f679035177f957690b728c223f3"
+    },
+    {
+      "path": "posters/icdm2026/overleaf.zip",
+      "source": "ARRL_S16207_Overleaf.zip",
+      "description": "Complete Overleaf upload package, including poster PDF.",
+      "sha256": "d5f4ea2a295440becde2bd2d8181299801606669b95ac1ba6ce33f05972f3cf9"
+    },
+    {
+      "path": "posters/icdm2026/src/.DS_Store",
+      "source": ".DS_Store",
+      "description": "Editable ICDM poster source or build asset.",
+      "sha256": "ff8129d988aa6c41d1fedb9b772449f17024a180470c72c774848f03aeac96d9"
+    },
+    {
+      "path": "posters/icdm2026/src/S16207.tex",
+      "source": "S16207.tex",
+      "description": "Editable ICDM poster source or build asset.",
+      "sha256": "7f21f30b01d2327335a5ed3221b0444bd8d0ad9e0c6e56ff7794a0e21f333c48"
+    },
+    {
+      "path": "posters/icdm2026/src/Makefile",
+      "source": "Makefile",
+      "description": "Editable ICDM poster source or build asset.",
+      "sha256": "6fae9d72a79823eeb5ba7b122df489fb3ee89ea2c6ee8dcdd283dfab2398dd29"
+    },
+    {
+      "path": "posters/icdm2026/src/main.tex",
+      "source": "main.tex",
+      "description": "Editable ICDM poster source or build asset.",
+      "sha256": "21d5b1a4faeb224ecf0db81258715184e0f5d3af404762b64028f4e86273a2cf"
+    },
+    {
+      "path": "posters/icdm2026/src/latexmkrc",
+      "source": "latexmkrc",
+      "description": "Editable ICDM poster source or build asset.",
+      "sha256": "a87f789d03ebc57c0a1cb1e1937bd82e9e7805c880efa0f066e18fb9641b8454"
+    },
+    {
+      "path": "posters/icdm2026/src/assets/itmo_logo_black.png",
+      "source": "itmo_logo_black.png",
+      "description": "Editable ICDM poster source or build asset.",
+      "sha256": "deb98e44bdf9ca12584b111fc9fbd4db0d8b13186e7a4aaaa69f216d880c4700"
+    },
+    {
+      "path": "posters/icdm2026/src/assets/icdm2026_logo.png",
+      "source": "icdm2026_logo.png",
+      "description": "Editable ICDM poster source or build asset.",
+      "sha256": "9e1a6afa093986148d49ae556a4f6156117457ecc7c51c558fa3e382921ca88e"
+    },
+    {
+      "path": "archive/kdd2026/poster.pdf",
+      "source": "MoE_Bias_poster_KDD2026.pdf",
+      "description": "Original supplied KDD poster, retained as a historical version.",
+      "sha256": "95ed9a5ea64d0eb359dfede9f42dbdcb45cd1f7166224925130ec06ec597ca63"
+    },
+    {
+      "path": "archive/kdd2026/overleaf.zip",
+      "source": "MoE_Bias_poster_KDD2026.zip",
+      "description": "Original KDD source archive, including intermediate poster versions.",
+      "sha256": "16ac82b0f8c001916af78e81a6a7c3fa5f10df2f9f403852d88548cda57924fc"
+    },
+    {
+      "path": "experiments/legacy/WES_auto_bias_mixtral.py",
+      "source": "WES_auto_bias_mixtral.py",
+      "description": "Unmodified exploratory router-bias experiment from MoE_Optimization/MoE_auto_bias_experiments.",
+      "sha256": "5b41141112d51622f7bbac288045cc8809594bbfeac222e997a29a2fb8d77f75"
+    },
+    {
+      "path": "experiments/legacy/WES_auto_bias_phi.py",
+      "source": "WES_auto_bias_phi.py",
+      "description": "Unmodified exploratory router-bias experiment from MoE_Optimization/MoE_auto_bias_experiments.",
+      "sha256": "e83df3a0e269c91e56014e338b277d5ef19b70eb79e0a0a8f544b99746166791"
+    },
+    {
+      "path": "experiments/legacy/WES_auto_bias_qwen3.py",
+      "source": "WES_auto_bias_qwen3.py",
+      "description": "Unmodified exploratory router-bias experiment from MoE_Optimization/MoE_auto_bias_experiments.",
+      "sha256": "877b18efe9153a628a90e6d5be2ef2d488d3d6caa061f8168986b2b72476d36a"
+    },
+    {
+      "path": "experiments/legacy/WES_auto_bias_qwen1.5.py",
+      "source": "WES_auto_bias_qwen1.5.py",
+      "description": "Unmodified exploratory router-bias experiment from MoE_Optimization/MoE_auto_bias_experiments.",
+      "sha256": "5f995de70673579fc5535a6aed46ada0b068752279fa0224fe442c2f6583269e"
+    }
+  ]
+}

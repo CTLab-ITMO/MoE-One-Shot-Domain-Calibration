@@ -1,0 +1,664 @@
+% !TeX program = pdflatex
+% !TeX encoding = UTF-8
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[final]{beamer}
+
+% Official ICDM 2026 Template 2: 33.1 x 46.8 inches, portrait.
+\usepackage[size=custom,width=84.074,height=118.872,scale=1.0]{beamerposter}
+
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable,raster}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+\fi
+\usepackage{noto}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{ragged2e}
+\usepackage{amsmath,amssymb}
+\usepackage{fontawesome5}
+\usepackage{hyperref}
+
+% ICDM palette: navy, blue and restrained supporting accents.
+\definecolor{PosterInk}{HTML}{142A44}
+\definecolor{PosterCharcoal}{HTML}{142A44}
+\definecolor{PosterTeal}{HTML}{157E88}
+\definecolor{PosterCoral}{HTML}{A85B45}
+\definecolor{PosterBlue}{HTML}{256CB0}
+\definecolor{PosterPurple}{HTML}{6257A2}
+\definecolor{PosterGold}{HTML}{A97719}
+\definecolor{PosterGreen}{HTML}{147667}
+\definecolor{PosterLine}{HTML}{CFD9E5}
+\definecolor{PosterMuted}{HTML}{526276}
+\definecolor{PosterPaper}{HTML}{FFFFFF}
+\definecolor{TealTint}{HTML}{EFF7F8}
+\definecolor{CoralTint}{HTML}{FCF2EE}
+\definecolor{BlueTint}{HTML}{F0F5FB}
+\definecolor{PurpleTint}{HTML}{F5F2FB}
+\definecolor{GoldTint}{HTML}{FBF6E9}
+\definecolor{GreenTint}{HTML}{F0F7F4}
+\definecolor{GrayTint}{HTML}{F3F6FA}
+
+% Engine-independent font setup. The `noto` package uses Type 1 fonts under
+% pdfLaTeX and OpenType fonts under XeLaTeX/LuaLaTeX, so the project compiles
+% with Overleaf's default pdfLaTeX compiler as well as with Unicode engines.
+\newcommand{\PosterTitleFont}{\notoserif}
+\newcommand{\PosterSans}{\notosans}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=PosterBlue,
+  linkcolor=PosterBlue,
+  pdfborder={0 0 0}
+}
+
+\setbeamercolor{background canvas}{bg=PosterPaper}
+\setbeamercolor{normal text}{fg=PosterInk,bg=PosterPaper}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=1.45cm,text margin right=1.45cm}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.5mm}
+\renewcommand{\arraystretch}{1.30}
+\setlength{\tabcolsep}{2.7mm}
+
+% The frame is intentionally stretched to the full poster height. These small
+% tolerances suppress harmless box diagnostics caused by Beamer's frame wrapper;
+% the rendered page has been visually checked for clipping and overlap.
+\hfuzz=4pt
+\vbadness=10000
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+\newenvironment{posteritems}{%
+  \begin{itemize}\setlength{\itemsep}{2.0mm}\setlength{\parskip}{0pt}\setlength{\parsep}{0pt}%
+}{\end{itemize}}
+
+\setbeamertemplate{itemize item}{\raisebox{0.15ex}{\color{PosterTeal}\scriptsize$\blacktriangleright$}}
+\setbeamertemplate{itemize subitem}{\raisebox{0.15ex}{\color{PosterCoral}\tiny$\blacktriangleright$}}
+
+\tcbset{
+  posterbox/.style={
+    enhanced,
+    colback=white,
+    colframe=PosterLine,
+    boxrule=0.65mm,
+    arc=3.0mm,
+    outer arc=3.0mm,
+    left=5.5mm,right=5.5mm,top=5.5mm,bottom=5.5mm,
+    before skip=0mm,after skip=0mm,
+    fontupper=\PosterSans\fontsize{19.5}{24}\selectfont,
+    fonttitle=\PosterSans\bfseries\fontsize{26}{30}\selectfont,
+    coltitle=PosterInk,
+    colbacktitle=GrayTint,
+    titlerule=0mm,
+    toptitle=4.0mm,bottomtitle=3.8mm,lefttitle=5.5mm,righttitle=5.5mm,
+    halign title=left,
+  },
+  compactbox/.style={
+    enhanced,
+    colback=white,
+    colframe=PosterLine,
+    boxrule=0.55mm,
+    arc=2.5mm,
+    left=4.5mm,right=4.5mm,top=4.2mm,bottom=4.2mm,
+    before skip=0mm,after skip=0mm,
+    fontupper=\PosterSans\fontsize{17.5}{21.5}\selectfont,
+    fonttitle=\PosterSans\bfseries\fontsize{21.5}{25.5}\selectfont,
+    coltitle=PosterInk,
+    colbacktitle=GrayTint,
+    titlerule=0mm,
+    toptitle=3.2mm,bottomtitle=3.1mm,lefttitle=4.5mm,righttitle=4.5mm,
+  },
+  microcard/.style={
+    enhanced,
+    colback=white,
+    colframe=PosterLine,
+    boxrule=0.45mm,
+    arc=2.2mm,
+    left=3.7mm,right=3.7mm,top=3.6mm,bottom=3.6mm,
+    before skip=0mm,after skip=0mm,
+    fontupper=\PosterSans\fontsize{16.5}{20.5}\selectfont,
+  }
+}
+
+\newtcolorbox{PosterBox}[1][]{posterbox,#1}
+\newtcolorbox{CompactBox}[1][]{compactbox,#1}
+\newtcolorbox{MicroCard}[1][]{microcard,#1}
+
+\newcommand{\SectionBand}[3]{%
+  \begin{tcolorbox}[
+    enhanced,colback=#2,colframe=#2,boxrule=0pt,arc=2.5mm,
+    left=5.5mm,right=5.5mm,top=3.4mm,bottom=3.4mm,
+    before skip=0mm,after skip=4.5mm]
+    {\PosterSans\bfseries\fontsize{31}{36}\selectfont\color{#3}#1}
+  \end{tcolorbox}%
+}
+
+\newcommand{\Badge}[2][PosterInk]{%
+  \tikz[baseline=-0.55ex]\node[rounded corners=1.5mm,fill=#1,text=white,inner xsep=3.2mm,inner ysep=1.7mm,font=\PosterSans\bfseries\fontsize{13.5}{16.5}\selectfont]{#2};%
+}
+
+\newcommand{\Metric}[3]{%
+  \begin{minipage}[c]{0.31\linewidth}\centering
+    {\PosterSans\bfseries\fontsize{22}{25}\selectfont\color{#3}#1}\par
+    {\PosterSans\fontsize{14.5}{17.5}\selectfont\color{PosterMuted}#2}
+  \end{minipage}%
+}
+
+\newcommand{\SmallNote}[1]{%
+  {\PosterSans\fontsize{14.5}{17.5}\selectfont\color{PosterMuted}#1}%
+}
+
+\usepackage{qrcode}
+
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds,shapes.geometric,matrix}
+
+\title{One-Shot Domain Calibration of Mixture-of-Experts Routers via Gradient Bias Steering}
+\author{Evgeny Bessonnitsyn, Konstantin Pakulnevich, Marina Frolova, Ivan Shchukin, Timur Gabbasov, Aleksandr Ustinov, Sergey Muravyov}
+\institute{ITMO University}
+
+\begin{document}
+\begin{frame}[t]
+\vspace*{1.1cm}
+
+% ================================================================
+% Header
+% ================================================================
+\begin{minipage}[c]{0.18\textwidth}
+\centering
+\colorbox{PosterInk}{\includegraphics[width=0.95\linewidth]{assets/icdm2026_logo.png}}\par\vspace{3mm}
+{\PosterSans\bfseries\fontsize{21}{26}\selectfont\color{PosterBlue}ARRL Workshop}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.64\textwidth}
+\centering
+{\PosterTitleFont\bfseries\fontsize{57}{63}\selectfont\color{PosterInk}
+One-Shot Domain Calibration\\of Mixture-of-Experts Routers}\par\vspace{2mm}
+{\PosterSans\bfseries\fontsize{44}{50}\selectfont\color{PosterBlue}
+via Gradient Bias Steering}\par
+\vspace{2mm}
+{\PosterSans\fontsize{23}{28}\selectfont\color{PosterInk}
+Evgeny Bessonnitsyn, Konstantin Pakulnevich, Marina Frolova,\\
+Ivan Shchukin, Timur Gabbasov, Aleksandr Ustinov, Sergey Muravyov}\par
+\vspace{1.6mm}
+{\PosterSans\bfseries\fontsize{25}{30}\selectfont\color{PosterInk}ITMO University}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.145\textwidth}
+\centering
+\includegraphics[width=\linewidth]{assets/itmo_logo_black.png}\par\vspace{4mm}
+\begin{minipage}[t]{0.48\linewidth}\centering
+{\hypersetup{urlcolor=black}\qrcode[height=4.5cm]{https://github.com/CTLab-ITMO/MoE-One-Shot-Domain-Calibration}}\par\vspace{1.5mm}
+{\PosterSans\fontsize{14}{18}\selectfont\color{PosterMuted}GitHub\\Code repository}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\linewidth}\centering
+{\hypersetup{urlcolor=black}\qrcode[height=4.5cm]{https://t.me/Turukmokto}}\par\vspace{1.5mm}
+{\PosterSans\fontsize{14}{18}\selectfont\color{PosterMuted}Telegram\\@Turukmokto}
+\end{minipage}
+\end{minipage}
+\par\vspace{4mm}
+{\PosterSans\bfseries\fontsize{23}{28}\selectfont\color{PosterBlue}
+IEEE ICDM 2026\hfill ARRL: Adaptable, Reliable, and Responsible Learning}\par
+\vspace{2mm}\hrule height 0.6mm\vspace{4mm}
+\begin{tcolorbox}[
+  enhanced,
+  colback=PosterCharcoal,
+  colframe=PosterCharcoal,
+  boxrule=0pt,
+  arc=3.8mm,
+  left=9mm,
+  right=9mm,
+  top=4.5mm,
+  bottom=4.5mm,
+  before skip=0mm,
+  after skip=0mm
+]
+  \centering
+
+  {\PosterSans\bfseries\fontsize{40}{46}\selectfont\color{white}
+  \faLightbulb[regular]\hspace{4mm}%
+  Main idea: calibrate the router, not the experts.%
+  \par}
+
+  \vspace{1.4mm}
+
+  {\PosterSans\fontsize{25.5}{31}\selectfont\color{white!93}
+  One forward/backward pass over 100 domain examples produces a tiny
+  bias that steers borderline Top-$K$ choices, while the frozen MoE
+  and its standard inference path remain intact.%
+  \par}
+\end{tcolorbox}
+
+% Явный интервал над Abstract / Motivation / Experiments.
+% Он надёжнее, чем after skip внутри tcolorbox в beamer.
+\par
+\vspace{9.0mm}
+
+% ================================================================
+% Main two-column body
+% ================================================================
+\begin{columns}[T,onlytextwidth]
+
+% ----------------------------------------------------------------
+% LEFT: abstract + introduction + method
+% ----------------------------------------------------------------
+\begin{column}{0.636\textwidth}
+\begin{minipage}[t][88cm][s]{\linewidth}
+
+\begin{minipage}[t]{0.492\linewidth}
+\vspace{0pt}
+\begin{PosterBox}[
+  title={\faFile\hspace{2.5mm}Abstract},
+  colframe=PosterBlue,colbacktitle=BlueTint,coltitle=PosterBlue,
+  fontupper=\PosterSans\fontsize{27.8}{33.2}\selectfont]
+Sparse Mixture-of-Experts models are pretrained on broad data mixtures, so their routers may underuse experts that are useful for a narrow deployment domain. We introduce \textbf{Domain-Calibrated Router Bias (DCRB)}, a one-shot post-training method for a fully frozen MoE. A 100-example labeled calibration set provides answer-token gradients with respect to router bias; the resulting per-expert importance is normalized, scaled by the layer's own logit dispersion, and folded into the standard gate bias. DCRB improves mathematics, chemistry, and history accuracy while storing only a few kilobytes per domain and adding no custom routing logic at inference.
+\end{PosterBox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.492\linewidth}
+\vspace{0pt}
+\begin{PosterBox}[
+  title={\faBullseye\hspace{2.5mm}Motivation and contributions},
+  colframe=PosterTeal,colbacktitle=TealTint,coltitle=PosterGreen,
+  fontupper=\PosterSans\fontsize{26.5}{31.8}\selectfont]
+\begin{posteritems}
+  \item Domain knowledge may already exist in the frozen experts, but the general-purpose router may not expose it consistently.
+  \item Full fine-tuning is expensive; dynamic routing rules can add per-token control logic and latency.
+  \item DCRB changes only one scalar per expert per MoE layer and keeps the number of active experts fixed.
+\end{posteritems}
+\vspace{0.5mm}
+{\PosterSans\bfseries\fontsize{22}{26}\selectfont\color{PosterGreen}Contributions}\par
+\begin{posteritems}
+  \item Answer-token gradient importance for each router bias.
+  \item Automatic layer-wise scaling from router-logit statistics.
+  \item Subject-level, resource, and routing-behavior evaluation on two Qwen MoE models.
+\end{posteritems}
+\end{PosterBox}
+\end{minipage}
+
+\vspace{2.2mm}
+\SectionBand{\faCogs\hspace{3mm}Method: one-shot gradient bias steering}{BlueTint}{PosterBlue}
+
+% A. End-to-end pipeline
+\begin{PosterBox}[
+  title={A. DCRB calibration and deployment pipeline},
+  colframe=PosterBlue,colbacktitle=BlueTint,coltitle=PosterBlue,
+  height=18cm,
+  valign=center,
+  fontupper=\PosterSans\fontsize{25.5}{30.5}\selectfont]
+\centering
+\resizebox{0.985\linewidth}{!}{%
+\begin{tikzpicture}[node distance=0.64cm,>=Latex]
+\tikzset{
+  stepbox/.style={rounded corners=2.2mm,line width=0.8pt,text width=8.45cm,minimum height=9.15cm,align=center,inner sep=3.8mm,font=\PosterSans\fontsize{18.5}{22.4}\selectfont},
+  num/.style={circle,text=white,minimum size=9.7mm,font=\PosterSans\bfseries\fontsize{22}{25}\selectfont}
+}
+\node[stepbox,draw=PosterBlue,fill=BlueTint] (p1) {\tikz\node[num,fill=PosterBlue]{1};\\[2.2mm]\textbf{Collect 100 domain examples}\\[1.1mm]Use a labeled calibration set disjoint from evaluation.};
+\node[stepbox,draw=PosterTeal,fill=TealTint,right=of p1] (p2) {\tikz\node[num,fill=PosterTeal]{2};\\[2.2mm]\textbf{Run one gradient pass}\\[1.1mm]Teacher forcing; the loss mask includes answer tokens only.};
+\node[stepbox,draw=PosterPurple,fill=PurpleTint,right=of p2] (p3) {\tikz\node[num,fill=PosterPurple]{3};\\[2.2mm]\textbf{Score routed experts}\\[1.1mm]Test whether a larger gate bias lowers answer loss.};
+\node[stepbox,draw=PosterCoral,fill=CoralTint,right=of p3] (p4) {\tikz\node[num,fill=PosterCoral]{4};\\[2.2mm]\textbf{Normalize and scale}\\[1.1mm]Center each layer and use $4\,\mathrm{Std}(z_\ell)/N_\ell$.};
+\node[stepbox,draw=PosterGold,fill=GoldTint,right=of p4] (p5) {\tikz\node[num,fill=PosterGold]{5};\\[2.2mm]\textbf{Write into the gate bias}\\[1.1mm]Store $\Delta b^{(d)}$ in the standard router linear layer and deploy.};
+\foreach \a/\b in {p1/p2,p2/p3,p3/p4,p4/p5}{\draw[-{Latex[length=3mm]},line width=1.0pt,PosterMuted] (\a)--(\b);}
+\end{tikzpicture}}
+\vspace{1.2mm}
+\begin{tcolorbox}[microcard,colback=BlueTint,colframe=PosterBlue!55,
+  left=4.5mm,right=4.5mm,top=3.8mm,bottom=3.8mm,
+  fontupper=\PosterSans\fontsize{23.0}{27.8}\selectfont]
+\textbf{No iterative optimization.} Calibration uses no optimizer state, learning-rate schedule, repeated epochs, trainable adapter, or expert-weight update.
+\end{tcolorbox}
+\end{PosterBox}
+
+\vspace{6.2mm}
+
+% B. Gradient score + C. Bias steering
+\begin{minipage}[t]{0.392\linewidth}
+\vspace{0pt}
+\begin{PosterBox}[
+  title={B. Gradient score for each routed expert},
+  colframe=PosterGold,colbacktitle=GoldTint,coltitle=PosterGold,
+  height=31cm,
+  valign=top,
+  fontupper=\PosterSans\fontsize{25.8}{31.2}\selectfont]
+For active expert $i$ in layer $\ell$, differentiating the routed mixture through the selected-expert softmax gives
+\[
+ \frac{\partial o_{\ell,t}}{\partial z_{\ell,t,i}}
+ =w_{\ell,t,i}\bigl(e_{\ell,i}(h_{\ell,t})-o_{\ell,t}\bigr).
+\]
+With $g_{\ell,t}=\partial L/\partial o_{\ell,t}$, DCRB accumulates only answer tokens ($m_t=1$):
+\[
+ S_{\ell,i}=-\!\sum_{t:m_t=1}
+ g_{\ell,t}^{\mathsf T}w_{\ell,t,i}
+ \bigl(e_{\ell,i}(h_{\ell,t})-o_{\ell,t}\bigr).
+\]
+\begin{tcolorbox}[microcard,colback=GoldTint,colframe=PosterGold!55,
+  left=4.2mm,right=4.2mm,top=4.0mm,bottom=4.0mm,
+  fontupper=\PosterSans\fontsize{21.0}{25.5}\selectfont]
+\textbf{Interpretation.} Positive $S_{\ell,i}$ means that a small increase of expert $i$'s router bias is locally aligned with lower answer-token loss.
+\end{tcolorbox}
+\vspace{1mm}
+\centering
+\resizebox{0.96\linewidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\tikzset{
+  box/.style={rounded corners=1.5mm,draw=PosterMuted,fill=GrayTint,minimum width=2.55cm,minimum height=1.90cm,align=center,font=\PosterSans\bfseries\fontsize{15.5}{18.7}\selectfont},
+  small/.style={font=\PosterSans\fontsize{14.5}{17.5}\selectfont,text=PosterMuted,align=center}
+}
+\node[box] (loss) at (0,2.65) {answer-token\\loss $L$};
+
+\node[box,draw=PosterPurple,fill=PurpleTint] (mix) at (4.85,2.65) {MoE output\\$o_{\ell,t}$};
+
+\node[box,draw=PosterTeal,fill=TealTint] (gate) at (9.10,2.65) {router logit\\$z_{\ell,t,i}$};
+\node[box,draw=PosterCoral,fill=CoralTint] (bias) at (13.25,2.65) {gate bias\\$b^r_{\ell,i}$};
+\draw[-{Latex[length=2.7mm]},line width=0.9pt,PosterInk] (loss)--(mix);
+\draw[-{Latex[length=2.7mm]},line width=0.9pt,PosterInk] (mix)--(gate);
+\draw[-{Latex[length=2.7mm]},line width=0.9pt,PosterInk] (gate)--(bias);
+
+
+\node[small] at (5.48,-0.25) {backpropagation reaches the additive bias directly because $\partial z/\partial b=1$};
+\end{tikzpicture}}
+\vspace{2.0mm}
+\begin{tcbraster}[raster columns=2,raster column skip=2.8mm,raster equal height=rows]
+\begin{MicroCard}[height=7.0cm,colback=BlueTint,colframe=PosterBlue!55,halign=center,valign=center,left=3.5mm,right=3.5mm,top=3.0mm,bottom=3.0mm,fontupper=\PosterSans\fontsize{20.0}{24.2}\selectfont]
+{\PosterSans\bfseries\fontsize{21.5}{25.5}\selectfont\color{PosterBlue}Answer tokens only}\par\vspace{1mm}
+Prompt tokens provide context, but only answer-token gradients contribute to $S_{\ell,i}$.
+\end{MicroCard}
+\begin{MicroCard}[height=7.0cm,colback=TealTint,colframe=PosterTeal!55,halign=center,valign=center,left=3.5mm,right=3.5mm,top=3.0mm,bottom=3.0mm,fontupper=\PosterSans\fontsize{20.0}{24.2}\selectfont]
+{\PosterSans\bfseries\fontsize{21.5}{25.5}\selectfont\color{PosterGreen}Directly deployable}\par\vspace{1mm}
+Because $z_{\ell,t,i}$ depends additively on $b^r_{\ell,i}$, the score targets the same parameter stored at inference.
+\end{MicroCard}
+\end{tcbraster}
+\end{PosterBox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.594\linewidth}
+\vspace{0pt}
+\begin{PosterBox}[
+  title={C. Normalize, scale, and steer only borderline routing decisions},
+  colframe=PosterPurple,colbacktitle=PurpleTint,coltitle=PosterPurple,
+  height=31cm,
+  valign=center,
+  fontupper=\PosterSans\fontsize{25.3}{30.6}\selectfont]
+{\PosterSans\fontsize{21.8}{26.2}\selectfont
+Layer-wise normalization removes score-scale differences and keeps steering conservative within each router:
+}
+\[
+ \widehat s_{\ell,i}=
+ \frac{S_{\ell,i}-\overline S_\ell}
+ {\max_j|S_{\ell,j}-\overline S_\ell|+\epsilon},
+ \qquad
+ \Delta b^{(d)}_{\ell,i}=\frac{4\,\mathrm{Std}(z_\ell)}{N_\ell}\,\widehat s_{\ell,i}.
+\]
+\vspace{0.8mm}
+\centering
+\resizebox{0.985\linewidth}{!}{%
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\tikzset{
+  expert/.style={circle,draw=PosterMuted,fill=GrayTint,minimum size=9.7mm,line width=0.7pt,font=\PosterSans\bfseries\fontsize{14.5}{17.2}\selectfont},
+  on/.style={circle,draw=PosterTeal,fill=TealTint,minimum size=9.7mm,line width=1.25pt,font=\PosterSans\bfseries\fontsize{14.5}{17.2}\selectfont},
+  promoted/.style={circle,draw=PosterGreen,fill=PosterGreen!24,minimum size=9.7mm,line width=2.3pt,font=\PosterSans\bfseries\fontsize{14.5}{17.2}\selectfont},
+  suppressed/.style={circle,draw=PosterCoral,fill=CoralTint,minimum size=8.8mm,line width=1.6pt,font=\PosterSans\bfseries\fontsize{14.5}{17.2}\selectfont},
+  title/.style={font=\PosterSans\bfseries\fontsize{18.0}{21.5}\selectfont,text=PosterInk},
+  annot/.style={font=\PosterSans\fontsize{15.2}{18.3}\selectfont,text=PosterMuted,align=center},
+  legendbox/.style={rounded corners=1.6mm,draw=PosterMuted,fill=GrayTint,inner sep=2.0mm,font=\PosterSans\fontsize{15.0}{18.0}\selectfont,text=PosterInk}
+}
+\node[title] at (3.2,6.15) {base Top-$K$};
+\node[title] at (11.2,6.15) {after DCRB};
+% left group
+\node[on]         at (0.8,4.35) {$e_{1}$};
+\node[on]         at (2.4,4.35) {$e_{2}$};
+\node[expert]     at (4.0,4.35) {$e_{3}$};
+\node[on]         at (5.6,4.35) {$e_{4}$};
+\node[expert]     at (0.8,1.95) {$e_{5}$};
+\node[on]         at (2.4,1.95) {$e_{6}$};
+\node[expert]     at (4.0,1.95) {$e_{7}$};
+\node[expert]     at (5.6,1.95) {$e_{8}$};
+% right group
+\node[on]         at (8.8,4.35) {$e_{1}$};
+\node[suppressed] at (10.4,4.35) {$e_{2}$};
+\node[promoted]   at (12.0,4.35) {$e_{3}$};
+\node[on]         at (13.6,4.35) {$e_{4}$};
+\node[expert]     at (8.8,1.95) {$e_{5}$};
+\node[on]         at (10.4,1.95) {$e_{6}$};
+\node[expert]     at (12.0,1.95) {$e_{7}$};
+\node[expert]     at (13.6,1.95) {$e_{8}$};
+\draw[-{Latex[length=3.2mm]},line width=1.2pt,PosterPurple] (6.55,2.75)--node[annot,above]{add $\Delta b^{(d)}$} (7.95,2.75);
+\node[annot] at (3.2,0.45) {same $K$ selected};
+\node[annot] at (11.2,0.45) {same $K$; mostly the same experts};
+\node[legendbox] at (7.2,-1.05) {schematic: {\bfseries\color{PosterGreen}domain expert promoted}, {\bfseries\color{PosterCoral}generic expert suppressed}};
+\end{tikzpicture}}
+\vspace{1.2mm}
+\begin{tcolorbox}[microcard,colback=PurpleTint,colframe=PosterPurple!55,
+  left=4.5mm,right=4.5mm,top=4.0mm,bottom=4.0mm,
+  fontupper=\PosterSans\fontsize{21.8}{26.3}\selectfont]
+\textbf{Why this scale.} $4\,\mathrm{Std}(z_\ell)/N_\ell$ follows each router's natural dynamic range and stays conservative. IQR-, margin-, and squared-score scales were explored as ablations; the $4\sigma$ rule was selected for stability.
+\end{tcolorbox}
+\end{PosterBox}
+\end{minipage}
+
+\vspace{6.2mm}
+
+% D. Deployment invariants
+\begin{PosterBox}[
+  title={D. Deployment invariants: a domain adapter measured in kilobytes},
+  colframe=PosterTeal,colbacktitle=TealTint,coltitle=PosterGreen,
+  height=14.2cm,
+  valign=center,
+  fontupper=\PosterSans\fontsize{26}{31.5}\selectfont]
+\begin{tcbraster}[raster columns=4,raster column skip=3mm,raster equal height=rows]
+\begin{MicroCard}[height=6.2cm,colback=BlueTint,colframe=PosterBlue!60,halign=center,valign=center,left=3.5mm,right=3.5mm,top=3.2mm,bottom=3.2mm,fontupper=\PosterSans\fontsize{20.5}{24.8}\selectfont]
+{\color{PosterBlue}\fontsize{31}{34}\selectfont\faProjectDiagram}\par\vspace{1.5mm}
+{\PosterSans\bfseries\fontsize{22.5}{26.5}\selectfont All pretrained weights frozen}\par\vspace{0.8mm}
+No expert, attention, embedding, or router matrix is updated.
+\end{MicroCard}
+\begin{MicroCard}[height=6.2cm,colback=TealTint,colframe=PosterTeal!60,halign=center,valign=center,left=3.5mm,right=3.5mm,top=3.2mm,bottom=3.2mm,fontupper=\PosterSans\fontsize{20.5}{24.8}\selectfont]
+{\color{PosterGreen}\fontsize{31}{34}\selectfont\faCodeBranch}\par\vspace{1.5mm}
+{\PosterSans\bfseries\fontsize{22.5}{26.5}\selectfont Standard forward path}\par\vspace{0.8mm}
+The offset is stored as the ordinary bias of the router linear layer.
+\end{MicroCard}
+\begin{MicroCard}[height=6.2cm,colback=PurpleTint,colframe=PosterPurple!55,halign=center,valign=center,left=3.5mm,right=3.5mm,top=3.2mm,bottom=3.2mm,fontupper=\PosterSans\fontsize{20.5}{24.8}\selectfont]
+{\color{PosterPurple}\fontsize{31}{34}\selectfont\faPuzzlePiece}\par\vspace{1.5mm}
+{\PosterSans\bfseries\fontsize{22.5}{26.5}\selectfont Inference sparsity unchanged}\par\vspace{0.8mm}
+Top-$K$ and the amount of expert computation remain fixed.
+\end{MicroCard}
+\begin{MicroCard}[height=6.2cm,colback=GoldTint,colframe=PosterGold!60,halign=center,valign=center,left=3.5mm,right=3.5mm,top=3.2mm,bottom=3.2mm,fontupper=\PosterSans\fontsize{20.5}{24.8}\selectfont]
+{\color{PosterGold}\fontsize{31}{34}\selectfont\faCompress}\par\vspace{1.5mm}
+{\PosterSans\bfseries\fontsize{22.5}{26.5}\selectfont One scalar per expert}\par\vspace{0.8mm}
+Domain variants are tiny bias deltas rather than full checkpoints.
+\end{MicroCard}
+\end{tcbraster}
+\vspace{2.0mm}
+\begin{tcolorbox}[microcard,colback=GreenTint,colframe=PosterGreen!55,
+  left=5mm,right=5mm,top=4.0mm,bottom=4.0mm,
+  fontupper=\PosterSans\fontsize{22}{26.6}\selectfont]
+\textbf{Practical interpretation.} DCRB does not teach the model new knowledge or add a runtime module. It changes how a frozen MoE allocates already learned expert capacity to the target domain, while each specialized state remains only a small router-bias vector.
+\end{tcolorbox}
+\end{PosterBox}
+
+\end{minipage}
+\end{column}
+
+% spacer
+\begin{column}{0.015\textwidth}\end{column}
+
+% ----------------------------------------------------------------
+% RIGHT: experiments
+% ----------------------------------------------------------------
+\begin{column}{0.347\textwidth}
+\begin{minipage}[t][88cm][s]{\linewidth}
+
+\SectionBand{\faFlask\hspace{3mm}Experiments}{CoralTint}{PosterCoral}
+
+\begin{CompactBox}[
+  title={1. Evaluation setup},
+  colframe=PosterCoral,colbacktitle=CoralTint,coltitle=PosterCoral,
+  fontupper=\PosterSans\fontsize{21.0}{25.2}\selectfont]
+\begin{posteritems}
+  \item \textbf{Models:} Qwen1.5-MoE-A2.7B (24 layers, 60 routed experts, top-4) and Qwen3-30B-A3B (48 layers, 128 experts, top-8)
+  \item \textbf{Calibration:} 100 labeled, non-test examples per domain; teacher forcing; answer-token loss only
+  \item \textbf{Evaluation:} MMLU mathematics, chemistry, and history subsets; \texttt{all\_part} is a held-out 300-example general subset
+  \item \textbf{Hardware:} one NVIDIA A800 GPU with 80GB VRAM; all pretrained weights frozen
+\end{posteritems}
+\end{CompactBox}
+
+\vspace{2.2mm}
+
+\begin{PosterBox}[
+  title={2. Results at a glance -- Qwen1.5-MoE-A2.7B},
+  colframe=PosterTeal,colbacktitle=TealTint,coltitle=PosterGreen,
+  fontupper=\PosterSans\fontsize{19.5}{23.8}\selectfont]
+\begin{tcbraster}[raster columns=3,raster column skip=2.7mm,raster equal height=rows]
+\begin{MicroCard}[colback=TealTint,colframe=PosterTeal!55,halign=center,valign=center]
+{\PosterSans\bfseries\fontsize{28}{32}\selectfont\color{PosterGreen}+5.00 pp}\par
+College mathematics\par
+{\color{PosterMuted}35.00 $\rightarrow$ 40.00}
+\end{MicroCard}
+\begin{MicroCard}[colback=BlueTint,colframe=PosterBlue!55,halign=center,valign=center]
+{\PosterSans\bfseries\fontsize{28}{32}\selectfont\color{PosterBlue}+3.00 pp}\par
+College chemistry\par
+{\color{PosterMuted}45.00 $\rightarrow$ 48.00}
+\end{MicroCard}
+\begin{MicroCard}[colback=PurpleTint,colframe=PosterPurple!55,halign=center,valign=center]
+{\PosterSans\bfseries\fontsize{28}{32}\selectfont\color{PosterPurple}+2.45 pp}\par
+High-school U.S. history\par
+{\color{PosterMuted}69.12 $\rightarrow$ 71.57}
+\end{MicroCard}
+\end{tcbraster}
+\vspace{1.5mm}
+\begin{tcolorbox}[microcard,colback=GreenTint,colframe=PosterGreen!55]
+\textbf{General behavior is preserved.} The held-out \texttt{all\_part} subset is unchanged after mathematics and chemistry calibration; history calibration changes it by $+0.33$ pp.
+\end{tcolorbox}
+\end{PosterBox}
+
+\vspace{2.2mm}
+
+\begin{PosterBox}[
+  title={3. Mathematics -- one fixed DCRB configuration},
+  colframe=PosterBlue,colbacktitle=BlueTint,coltitle=PosterBlue,
+  fontupper=\PosterSans\fontsize{24}{29}\selectfont]
+{\PosterSans\fontsize{18}{22}\selectfont\color{PosterMuted}
+Bias calibrated on 100 non-test \texttt{college\_mathematics} examples. Accuracies are percentages.}\par\vspace{1.8mm}
+{\renewcommand{\arraystretch}{1.22}\setlength{\tabcolsep}{1.25mm}
+\rowcolors{2}{GrayTint}{white}
+\begin{tabularx}{\linewidth}{>{\hsize=1.72\hsize\linewidth=\hsize}L *{3}{>{\hsize=.76\hsize\linewidth=\hsize}Y}}
+\rowcolor{PosterInk}
+\color{white}\textbf{Evaluation subset} & \color{white}\textbf{Base} & \color{white}\textbf{DCRB} & \color{white}\textbf{$\Delta$ pp} \\
+\rowcolor{BlueTint}\multicolumn{4}{l}{\color{PosterBlue}\textbf{Qwen1.5-MoE-A2.7B}} \\
+College mathematics & 35.00 & \textbf{40.00} & \textbf{+5.00} \\
+Abstract algebra & 38.00 & \textbf{39.00} & +1.00 \\
+Elementary mathematics & 40.21 & \textbf{41.53} & +1.32 \\
+High-school mathematics & 30.37 & \textbf{31.11} & +0.74 \\
+\texttt{all\_part} & 55.67 & 55.67 & +0.00 \\
+\rowcolor{PurpleTint}\multicolumn{4}{l}{\color{PosterPurple}\textbf{Qwen3-30B-A3B}} \\
+College mathematics & 73.00 & \textbf{74.00} & +1.00 \\
+Abstract algebra & 73.00 & \textbf{74.00} & +1.00 \\
+Elementary mathematics & 85.19 & 85.19 & +0.00 \\
+High-school mathematics & 65.93 & \textbf{66.30} & +0.37 \\
+\texttt{all\_part} & 85.00 & 85.00 & +0.00 \\
+\end{tabularx}}
+\vspace{1.2mm}
+\begin{tcolorbox}[microcard,colback=BlueTint,colframe=PosterBlue!55,
+  fontupper=\PosterSans\fontsize{24}{29}\selectfont]
+\textbf{Cross-model pattern.} Qwen1.5 improves on all four mathematics subsets. The stronger Qwen3 baseline improves or remains unchanged on every mathematics subset and on \texttt{all\_part}.
+\end{tcolorbox}
+\end{PosterBox}
+
+\vspace{2.2mm}
+
+\begin{PosterBox}[
+  title={4. Chemistry and history -- Qwen1.5-MoE-A2.7B},
+  colframe=PosterPurple,colbacktitle=PurpleTint,coltitle=PosterPurple,
+  fontupper=\PosterSans\fontsize{24}{29}\selectfont]
+{\PosterSans\fontsize{18}{22}\selectfont\color{PosterMuted}
+Each bias is calibrated on 100 non-test examples from its named calibration subject.}\par\vspace{1.8mm}
+{\renewcommand{\arraystretch}{1.23}\setlength{\tabcolsep}{1.2mm}
+\rowcolors{2}{GrayTint}{white}
+\begin{tabularx}{\linewidth}{>{\hsize=1.72\hsize\linewidth=\hsize}L *{3}{>{\hsize=.76\hsize\linewidth=\hsize}Y}}
+\rowcolor{PosterInk}
+\color{white}\textbf{Evaluation subset} & \color{white}\textbf{Base} & \color{white}\textbf{DCRB} & \color{white}\textbf{$\Delta$ pp} \\
+\rowcolor{TealTint}\multicolumn{4}{l}{\color{PosterGreen}\textbf{Chemistry -- calibrated on college chemistry}} \\
+College chemistry & 45.00 & \textbf{48.00} & \textbf{+3.00} \\
+High-school chemistry & 44.83 & \textbf{45.81} & +0.98 \\
+\texttt{all\_part} & 55.67 & 55.67 & +0.00 \\
+\rowcolor{GoldTint}\multicolumn{4}{l}{\color{PosterGold}\textbf{History -- calibrated on high-school world history}} \\
+High-school world history & 70.89 & \textbf{72.15} & +1.26 \\
+High-school European history & 68.48 & \cellcolor{CoralTint}67.88 & \cellcolor{CoralTint}$-0.60$ \\
+High-school U.S. history & 69.12 & \textbf{71.57} & \textbf{+2.45} \\
+\texttt{all\_part} & 55.67 & \textbf{56.00} & +0.33 \\
+\end{tabularx}}
+\vspace{1.2mm}
+\begin{tcolorbox}[microcard,colback=GoldTint,colframe=PosterGold!55,
+  fontupper=\PosterSans\fontsize{24}{29}\selectfont]
+\textbf{Nuance.} Chemistry improves on both target subsets. History improves on two of three target subsets; high-school European history decreases by $0.60$ pp.
+\end{tcolorbox}
+\end{PosterBox}
+
+\vspace{2.2mm}
+
+\begin{PosterBox}[
+  title={5. Resource accounting and router behavior},
+  colframe=PosterTeal,colbacktitle=TealTint,coltitle=PosterGreen,
+  fontupper=\PosterSans\fontsize{19.0}{23.0}\selectfont]
+\begin{tcbraster}[raster columns=4,raster column skip=2.2mm,raster equal height=rows]
+\begin{MicroCard}[colback=CoralTint,colframe=PosterCoral!55,halign=center,valign=center,fontupper=\PosterSans\fontsize{17.5}{21.2}\selectfont]
+{\PosterSans\bfseries\fontsize{23.5}{27.5}\selectfont\color{PosterCoral}$<$1 min}\par
+100 examples on one A800 80GB
+\end{MicroCard}
+\begin{MicroCard}[colback=BlueTint,colframe=PosterBlue!55,halign=center,valign=center,fontupper=\PosterSans\fontsize{17.5}{21.2}\selectfont]
+{\PosterSans\bfseries\fontsize{23.5}{27.5}\selectfont\color{PosterBlue}2.8KB}\par
+Qwen1.5: 1,440 FP16 scalars
+\end{MicroCard}
+\begin{MicroCard}[colback=PurpleTint,colframe=PosterPurple!55,halign=center,valign=center,fontupper=\PosterSans\fontsize{17.5}{21.2}\selectfont]
+{\PosterSans\bfseries\fontsize{23.5}{27.5}\selectfont\color{PosterPurple}12.0KB}\par
+Qwen3: 6,144 FP16 scalars
+\end{MicroCard}
+\begin{MicroCard}[colback=TealTint,colframe=PosterTeal!55,halign=center,valign=center,fontupper=\PosterSans\fontsize{17.5}{21.2}\selectfont]
+{\PosterSans\bfseries\fontsize{23.5}{27.5}\selectfont\color{PosterGreen}same Top-$K$}\par
+No extra expert computation
+\end{MicroCard}
+\end{tcbraster}
+\vspace{1.5mm}
+\begin{tcbraster}[raster columns=2,raster column skip=2.7mm,raster equal height=rows]
+\begin{MicroCard}[colback=BlueTint,colframe=PosterBlue!55,fontupper=\PosterSans\fontsize{18}{22}\selectfont]
+\textbf{Local rerouting.} In the most affected Qwen1.5 layers, exact Top-$K$ matches remain around 40\%, while partial overlap stays high. Qwen3 reroutes more conservatively.
+\end{MicroCard}
+\begin{MicroCard}[colback=PurpleTint,colframe=PosterPurple!55,fontupper=\PosterSans\fontsize{18}{22}\selectfont]
+\textbf{No collapse.} Expert-activation entropy decreases, concentrating mass on a narrower domain-relevant subset, but never falls to zero.
+\end{MicroCard}
+\end{tcbraster}
+\vspace{1.5mm}
+\begin{tcolorbox}[microcard,colback=GoldTint,colframe=PosterGold!55,fontupper=\PosterSans\fontsize{18}{22}\selectfont]
+\textbf{Uncertainty.} MMLU subject subsets are small. Changes below one percentage point should not be over-interpreted; the paper emphasizes repeated directionality and preservation of \texttt{all\_part}, not significance of every individual cell.
+\end{tcolorbox}
+\end{PosterBox}
+
+\end{minipage}
+\end{column}
+\end{columns}
+
+\vspace{8.8mm}
+\begin{tcolorbox}[enhanced,colback=PosterInk,colframe=PosterInk,boxrule=0pt,arc=3mm,
+left=7mm,right=7mm,top=5mm,bottom=5mm,before skip=0mm,after skip=0mm]
+{\PosterSans\bfseries\fontsize{37}{43}\selectfont\color{white}Takeaway}\par\vspace{1mm}
+{\PosterSans\fontsize{28}{35}\selectfont\color{white}A frozen MoE can be specialized by calibrating \textbf{expert selection rather than expert weights}. With 100 labeled examples and one gradient pass, DCRB stores only a few kilobytes per domain, improves several target subjects, and preserves the standard Top-$K$ inference path.}\par\vspace{2mm}
+{\PosterSans\fontsize{21}{26}\selectfont\color{white!85}\textbf{Scope.} DCRB requires gradient access, cannot add missing knowledge, and is currently evaluated on two Qwen MoE models and MMLU-style multiple-choice tasks.}
+\end{tcolorbox}
+\vspace{4mm}
+{\PosterSans\bfseries\fontsize{24}{29}\selectfont\color{PosterInk}
+Contact: Telegram \href{https://t.me/Turukmokto}{@Turukmokto}\quad$\cdot$\quad Email: \href{mailto:esbessonn@gmail.com}{esbessonn@gmail.com}}\par\vspace{1.5mm}
+{\PosterSans\fontsize{17}{21}\selectfont\color{PosterMuted}\textbf{Acknowledgment.} This work was supported by the Ministry of Economic Development of the Russian Federation (IGK 000000C313925P4C0002), agreement No. 139-15-2025-010.}
+\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=south west,inner sep=0pt,font=\PosterSans\fontsize{20}{25}\selectfont,text=PosterMuted]
+ at ([xshift=1.45cm,yshift=0.9cm]current page.south west) {ARRL $\cdot$ IEEE ICDM 2026 $\cdot$ Shenyang, China $\cdot$ November 12, 2026};
+\node[anchor=south east,inner sep=0pt,font=\PosterSans\bfseries\fontsize{26}{31}\selectfont,text=PosterInk]
+ at ([xshift=-1.45cm,yshift=0.9cm]current page.south east) {Paper ID: S16207};
+\end{tikzpicture}
+\end{frame}
+\end{document}
